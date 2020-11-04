@@ -1,7 +1,6 @@
 <template>
   <div class="one">
-    <h1>One</h1>
-    <img src="https://cn.vuejs.org/images/logo.png" alt="" srcset="" />
+    <h1>A</h1>
     <button @click="onToTwo">To Two</button>
   </div>
 </template>

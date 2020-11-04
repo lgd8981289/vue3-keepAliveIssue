@@ -9,13 +9,19 @@
 </template>
 
 <script>
+import { ref } from 'vue';
 export default {
   name: 'App',
   data() {
     return {
       transitionName: '',
-      virtualTaskStack: [],
       once: false
+    };
+  },
+  setup() {
+    const virtualTaskStack = ref([]);
+    return {
+      virtualTaskStack
     };
   },
   watch: {
@@ -25,12 +31,13 @@ export default {
         this.virtualTaskStack.push(to.name);
         return;
       }
+      // According to the params at the time of the jump, decide whether to cache the component
       const routerType = to.params.routerType;
       if (routerType === 'push') {
         this.virtualTaskStack.push(to.name);
         this.transitionName = 'fold-left';
       } else {
-        const index = this.virtualTaskStack.findIndex((name) => name === to.name);
+        const index = this.virtualTaskStack.findIndex((name) => name === from.name);
 
         if (index != -1) {
           this.virtualTaskStack.splice(index, 1);
